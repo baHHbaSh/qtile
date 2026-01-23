@@ -96,8 +96,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Max(),
-    layout.Bsp(border_focus_stack=["#0ea0aa", "#8f873d"], border_width=1),
+    layout.Bsp(border_focus_stack=["#0ea0aa", "#8f873d"], border_width=1)
 ]
 
 widget_defaults = dict(
@@ -125,7 +124,6 @@ screens = [
                 # widget.StatusNotifier(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.CurrentLayout(),
             ],
             24,
             border_width=[1 for _ in range(4)],
