@@ -72,7 +72,7 @@ screens = [
                 widget.WindowName(),
                 widget.Chord(
                     chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
+                        "launch": ("#0e684d", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
@@ -83,10 +83,11 @@ screens = [
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
             24,
-            border_width=[1 for _ in range(4)],
-            border_color=["#094228" for _ in range(4)]
+            border_width=[2 for _ in range(4)],
+            border_color=["#181046" for _ in range(4)],
+            background="#130F18"
         ),
-        background="#001320",
+        background="#00132011",
         wallpaper="~/Pictures/D.png",
         wallpaper_mode="fill",
         x11_drag_polling_rate = 60,
@@ -126,14 +127,13 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = False
 
-# When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
-
-# xcursor theme (string or None) and size (integer) for Wayland backend
-wl_xcursor_theme = None
-wl_xcursor_size = 24
-
 idle_inhibitors = []
 wmname = "LG3D"
+
+@hook.subscribe.startup_once
+def autostart():
+    # Старт picom при запуске Qtile
+    subprocess.call(['picom', '--config', '~/.config/picom/picom.conf'])
+    #picom --config ~/.config/picom/picom.conf
 
 LangInit(keys)
