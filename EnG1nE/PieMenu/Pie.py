@@ -1,1 +1,10 @@
-#А тут ничего нет, удачи написать это)))
+SavestNode = {
+    "Main":{
+        "Games": {
+            "DisplayName": "InConsoleName"
+        },
+        "Code":{
+            "DisplayName": "InConsoleName"
+        }
+    }
+}

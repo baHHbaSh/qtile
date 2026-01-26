@@ -8,6 +8,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 from EnG1nE.Language.Lang import*
+from EnG1nE.AltTab.AltTab import AltTab
 
 mod = "mod4" #win
 terminal = guess_terminal()
@@ -22,6 +23,8 @@ keys = [
     Key([mod, "control"], "right", lazy.screen.next_group(), desc="Swap screen"),
     Key([mod, "control"], "left", lazy.screen.prev_group(), desc="Swap screen"),
 ]
+
+AT = AltTab(keys)
 
 for vt in range(1, 8):
     keys.append(
@@ -41,12 +44,14 @@ for i in groups:
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
+                lazy.function(AT.LogWin(i.name)),
                 desc=f"Switch to group {i.name}",
             ),
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
+                lazy.function(AT.LogWin(i.name)),
                 desc=f"Switch to & move focused window to group {i.name}",
             ),
         ]
