@@ -1,0 +1,12 @@
+{
+    "Игры": {
+        "Steam": ["steam"]
+    },
+    "Программирование":{
+        "VSCode": ["code", "/img/vscode.png"]
+    },
+    "Социум":{
+        "Телеграм" : ["Telegram"],
+        "Chrome" : ["google-chrome-stable"]
+    }
+}
