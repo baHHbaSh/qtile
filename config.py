@@ -16,12 +16,6 @@ from EnG1nE.Language.Lang import*
 from EnG1nE.AltTab.AltTab import AltTab
 from EnG1nE.Binds.Media import InitMediaKeys
 from EnG1nE.Binds.WinBinds import InitWinKeys
-from EnG1nE.Groups.Groups import RandomColorGroupBox
-
-def random_color():
-    """Генерирует случайный цвет в формате hex"""
-    r = lambda: random.randint(0, 255)
-    return '#{:02x}{:02x}{:02x}'.format(r(), r(), r())
 
 mod = "mod4" #win
 terminal = "kitty"
@@ -57,7 +51,6 @@ for Bind in ImportBinds:
 
 groups = [Group(i) for i in "123456789"]
 for i in groups:
-    i.color = random_color()
     keys.extend(
         [
             Key(
