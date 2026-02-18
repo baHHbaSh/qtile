@@ -16,8 +16,11 @@ from EnG1nE.Language.Lang import*
 from EnG1nE.AltTab.AltTab import AltTab
 from EnG1nE.Binds.Media import InitMediaKeys
 from EnG1nE.Binds.WinBinds import InitWinKeys
+from EnG1nE.Sequencer.Seq import*
+from EnG1nE.IG.ImgGroup import*
 
 mod = "mod4" #win
+#terminal = guess_terminal()
 terminal = "kitty"
 keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -48,6 +51,15 @@ for Bind in ImportBinds:
         pass
         #ShowMessage("Error", traceback.format_exc())
 
+CPU = CPUGroup("/home/the/Seq/Vent", [
+                widget.CPUGraph(
+                    type="line", line_width=1, border_width=0, graph_color="#dd3333", background="#000000dd", padding=2
+                    ),
+                widget.CPU(
+                    format="ЦП: {load_percent}%", foreground="#dd3333", background="#000000dd", padding=2
+                    ),
+                ],
+                background="#55000055")
 
 groups = [Group(i) for i in "123456789"]
 for i in groups:
@@ -84,9 +96,15 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.Systray(),
-                widget.Sep(),
-                widget.GroupBox(highlight_method='line'),
+                widget.WidgetBox( #self.toggle/open/close
+                widgets=[
+                    widget.Systray(),
+                    widget.Sep(),
+                    widget.GroupBox(highlight_method='line'),
+                ],
+                text_closed='[+]',
+                text_open='[-]',
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -96,11 +114,8 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Spacer(),
-                widget.CPUGraph(
-                    type="line", line_width=1, border_width=0, graph_color="#dd3333", background="#000000dd", padding=2
-                    ),
-                widget.CPU(
-                    format="ЦП: {load_percent}%", foreground="#dd3333", background="#000000dd", padding=2
+                widget.Net(
+                    format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#995566", background="#000000dd", padding=2
                     ),
                 widget.Memory(
                     measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#000000dd", padding=2
@@ -117,9 +132,8 @@ screens = [
                 widget.Wlan(
                     format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
                     ),
-                widget.Net(
-                    format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#995566", background="#000000dd", padding=2
-                    ),
+                CPU.GetWidgets()[0],
+                CPU.GetWidgets()[1],
                 widget.Sep(),
                 LangShownTextBox,
                 widget.Sep(),
@@ -127,7 +141,7 @@ screens = [
                 # widget.StatusNotifier(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#dddddd"),
             ],
-            24,
+            30,
             border_width=2,
             border_color="#181046",
             background="#130F1888",

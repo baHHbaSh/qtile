@@ -3,6 +3,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4" #win
+#terminal = guess_terminal()
 terminal = "kitty"
 
 WinKeys = [
@@ -12,7 +13,7 @@ WinKeys = [
     Key([mod, "control"], "left", lazy.screen.prev_group(), desc="Swap screen"),
     Key(["control", "shift"], "Escape", lazy.spawn(f"{terminal} -e htop")),
     Key([mod], "z", lazy.spawn(f"{terminal} -e bash /home/the/zapret-discord-youtube-linux/main_script.sh")),
-    Key([mod], "i", lazy.spawn([f"{terminal}", "--hold", "-e", "fastfetch", "--logo", "~/Pictures/LogoSys.png"])),
+    Key([mod], "i", lazy.spawn([f"{terminal}", "--hold", "-e", "fastfetch"])),
     Key([mod], "o", lazy.spawn(f"{terminal} -e iwctl")),
     Key([mod], "e", lazy.spawn("thunar")),
     Key([mod], "a", lazy.spawn("pavucontrol")),

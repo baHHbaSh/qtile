@@ -26,7 +26,8 @@ i3lock \
     --pass-media-keys \
     --pass-power-keys \
     --pass-volume-keys \
-    --refresh-rate 60             # частота обновления (FPS)
+    --refresh-rate 60 &
+
 
 
 #i3lock \
