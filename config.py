@@ -117,6 +117,14 @@ screens = [
                 widget.Net(
                     format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#995566", background="#000000dd", padding=2
                     ),
+                widget.Redshift(
+                    temperature=4200,
+                    enabled_txt="🌙 {temperature}K",
+                    disabled_txt="☀️",
+                    # Шаг изменения температуры при скролле
+                    temperature_step=200,
+                    foreground="#C38614", background="#000000dd", padding=2
+                ),
                 widget.Memory(
                     measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#000000dd", padding=2
                     ),
