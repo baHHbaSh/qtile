@@ -65,7 +65,7 @@ class CPUGroup(VideoGroup):
 class RAMGroup(PercentGroup):
     def __init__(self, Path, FPS, Widgets, **kwargs):
         super().__init__(Path, FPS, Widgets, self.Callback, **kwargs)
-    def Callback(self):
+    def Callback(self, FPS):
         mem_info = psutil.virtual_memory()
         percent_used = mem_info.percent
         self.SeqButton.SetFramePercent(percent_used/100)

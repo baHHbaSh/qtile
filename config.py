@@ -62,6 +62,13 @@ CPU = CPUGroup("/home/the/Seq/Vent", [
                 ],
                 background="#55000055")
 
+RAM = RAMGroup(Path="/home/the/Seq/RAM", FPS=1, Widgets=[
+                widget.Memory(
+                    measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#000000dd", padding=2
+                    )
+                ],
+                background="#55000055")
+
 groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend(
@@ -126,9 +133,6 @@ screens = [
                     temperature_step=200,
                     foreground="#C38614", background="#000000dd", padding=2
                 ),
-                widget.Memory(
-                    measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#000000dd", padding=2
-                    ),
                 widget.ThermalSensor(
                     format='Temp: {temp:.0f}{unit}', foreground="#dd8511", background="#000000dd", padding=2
                     ),
@@ -141,6 +145,9 @@ screens = [
                 widget.Wlan(
                     format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
                     ),
+                
+                RAM.GetWidgets()[0],
+                RAM.GetWidgets()[1],
                 CPU.GetWidgets()[0],
                 CPU.GetWidgets()[1],
                 widget.Sep(),

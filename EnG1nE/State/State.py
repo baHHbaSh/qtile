@@ -1,6 +1,7 @@
 # ~/.config/qtile/EnG1nE/Sequencer/Seq.py
 from libqtile.widget import image, base
 import os
+from libqtile.log_utils import logger
 
 class State(image.Image):
     orientations = base.ORIENTATION_BOTH
@@ -45,9 +46,6 @@ class State(image.Image):
         self._Timer = self.timeout_add(interval, self._Iter)
 
     def _Iter(self):
-        self.CurrentFrameInd = (self.CurrentFrameInd + 1) % len(self._Frames)
-        self.filename = self._Frames[self.CurrentFrameInd]
-        
         self.cb(self._Hz)
 
         self._update_image()
