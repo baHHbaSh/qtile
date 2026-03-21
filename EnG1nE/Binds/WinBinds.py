@@ -20,6 +20,7 @@ WinKeys = [
     Key([mod], "l", lazy.spawn("bash /home/the/.config/qtile/Daemons/lock.sh")),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Take screenshot"),
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui"), desc="Take screenshot"),
+    Key([mod], "v", lazy.spawn("copyq toggle"), desc="Open copyq window"),
 ]
 
 def InitWinKeys(keys:list):

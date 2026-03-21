@@ -20,12 +20,13 @@ from EnG1nE.Sequencer.Seq import*
 from EnG1nE.IG.ImgGroup import*
 
 mod = "mod4" #win
+alt = "mod1"
 #terminal = guess_terminal()
 terminal = "kitty"
 keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([], "f11", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
+    Key([alt], "f11", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control", "shift"], "r", lazy.restart(), desc="Full reload the config"),
@@ -118,7 +119,7 @@ screens = [
                     format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#995566", background="#000000dd", padding=2
                     ),
                 widget.Redshift(
-                    temperature=4200,
+                    temperature=3000,
                     enabled_txt="🌙 {temperature}K",
                     disabled_txt="☀️",
                     # Шаг изменения температуры при скролле
