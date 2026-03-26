@@ -54,7 +54,7 @@ for Bind in ImportBinds:
 
 CPU = CPUGroup("/home/the/Seq/Vent", [
                 widget.CPUGraph(
-                    type="line", line_width=1, border_width=0, graph_color="#dd3333", background="#000000dd", padding=2
+                    type="line", line_width=1, border_width=0, graph_color="#ff0000", background="#000000dd", padding=2
                     ),
                 widget.CPU(
                     format="ЦП: {load_percent}%", foreground="#dd3333", background="#000000dd", padding=2
@@ -64,10 +64,19 @@ CPU = CPUGroup("/home/the/Seq/Vent", [
 
 RAM = RAMGroup(Path="/home/the/Seq/RAM", FPS=1, Widgets=[
                 widget.Memory(
-                    measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#000000dd", padding=2
+                    measure_mem="G", format="ОЗУ: {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}", foreground="#005599", background="#55000055", padding=2
                     )
                 ],
-                background="#55000055")
+                background="#55000055",
+                padding = 5)
+
+Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
+                widget.Battery(
+                    format="{percent:2.0%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
+                    )
+                ], 
+                backgrond="#55000055",
+                padding=5)
 
 groups = [Group(i) for i in "123456789"]
 for i in groups:
@@ -94,7 +103,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
+    font="Comic Sans MS",
     fontsize=12,
     padding=3,
 )
@@ -127,25 +136,17 @@ screens = [
                     ),
                 widget.Redshift(
                     temperature=3000,
-                    enabled_txt="🌙 {temperature}K",
+                    enabled_txt="🌙",
                     disabled_txt="☀️",
                     # Шаг изменения температуры при скролле
                     temperature_step=200,
                     foreground="#C38614", background="#000000dd", padding=2
                 ),
-                widget.ThermalSensor(
-                    format='Temp: {temp:.0f}{unit}', foreground="#dd8511", background="#000000dd", padding=2
-                    ),
-                widget.Battery(
-                    format="{percent:2.0%} {hour:d}:{min:02d}", foreground="#999900", background="#000000dd", padding=2
-                    ),
-                widget.Bluetooth(
-                    adapter_format="[{name}+{powered}]", foreground="#000099", background="#000000dd", padding=2
-                    ),
                 widget.Wlan(
                     format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
                     ),
-                
+                Bat.GetWidgets()[0],
+                Bat.GetWidgets()[1],
                 RAM.GetWidgets()[0],
                 RAM.GetWidgets()[1],
                 CPU.GetWidgets()[0],
