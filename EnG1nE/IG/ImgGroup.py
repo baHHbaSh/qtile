@@ -17,7 +17,7 @@ def get_wifi_percentage_iwconfig(interface="wlan0"):
             maximum = int(match.group(2))
             return current / maximum
     except Exception:
-        return "Ошибка: проверьте имя интерфейса (wlan0, wlp...)"
+        raise "Ошибка: проверьте имя интерфейса (wlan0, wlp...)"
 
 print(f"Сигнал (iwconfig): {get_wifi_percentage_iwconfig()}")
 
@@ -94,6 +94,9 @@ class BataryGroup(PercentGroup):
 
 class NetworkGroup(PercentGroup):
     def __init__(self, Path, FPS, Widgets, **kwargs):
-        super().__init__(Path, FPS, Widgets, **kwargs)
+        super().__init__(Path, FPS, Widgets, self.Callback, **kwargs)
     def Callback(self, FPS):
-        self.SeqButton.SetFramePercent(get_wifi_percentage_iwconfig())
+        try:
+            self.SeqButton.SetFramePercent(get_wifi_percentage_iwconfig())
+        except:
+            self.SeqButton.SetFrame(0)

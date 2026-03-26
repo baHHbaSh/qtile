@@ -36,6 +36,8 @@ class State(image.Image):
         """Вызывается после создания виджета, когда self.qtile уже доступен"""
         super()._configure(qtile, bar)
         self._CreateTimer()
+        self._update_image()
+        self.draw()
 
     def _CreateTimer(self, *_):
         if self._Timer:
@@ -47,9 +49,6 @@ class State(image.Image):
 
     def _Iter(self):
         self.cb(self._Hz)
-
-        self._update_image()
-        self.draw()
         
         self._CreateTimer()
         return False  # однократный вызов (таймер уже пересоздан)
@@ -72,6 +71,8 @@ class State(image.Image):
 
     def SetFrame(self, index:int):
         self.filename = self._Frames[index]
+        self._update_image()
+        self.draw()
 
     def SetFramePercent(self, Num0to1:float):
         Num0to1 = 0 if Num0to1 < 0 else 1 if Num0to1 > 1 else Num0to1

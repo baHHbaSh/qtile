@@ -78,6 +78,12 @@ Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                 backgrond="#55000055",
                 padding=5)
 
+WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=1, Widgets=[
+                widget.Wlan(
+                    format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
+                    )
+], backgrond="#55000055", padding=5)
+
 groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend(
@@ -131,20 +137,12 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Spacer(),
+                widget.Sep(),
                 widget.Net(
-                    format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#995566", background="#000000dd", padding=2
+                    format='{down:.0f}{down_suffix}↓↑{up:.0f}{up_suffix}', foreground="#0300C8", background="#55000055", padding=2
                     ),
-                widget.Redshift(
-                    temperature=3000,
-                    enabled_txt="🌙",
-                    disabled_txt="☀️",
-                    # Шаг изменения температуры при скролле
-                    temperature_step=200,
-                    foreground="#C38614", background="#000000dd", padding=2
-                ),
-                widget.Wlan(
-                    format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
-                    ),
+                WIFI.GetWidgets()[0],
+                WIFI.GetWidgets()[1],
                 Bat.GetWidgets()[0],
                 Bat.GetWidgets()[1],
                 RAM.GetWidgets()[0],
@@ -152,8 +150,17 @@ screens = [
                 CPU.GetWidgets()[0],
                 CPU.GetWidgets()[1],
                 widget.Sep(),
-                LangShownTextBox,
+                widget.Redshift(
+                    temperature=3000,
+                    enabled_txt="🌙",
+                    disabled_txt="☀️",
+                    # Шаг изменения температуры при скролле
+                    temperature_step=200,
+                    foreground="#C38614", background="#55000055", padding=2
+                ),
                 widget.Sep(),
+                LangShownTextBox,
+                widget.Sep(), 
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p", foreground="#dddddd"),
