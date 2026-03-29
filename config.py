@@ -78,7 +78,7 @@ Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                 backgrond="#55000055",
                 padding=5)
 
-WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=1, Widgets=[
+WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=10, Widgets=[
                 widget.Wlan(
                     format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
                     )

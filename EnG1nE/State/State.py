@@ -1,6 +1,6 @@
 # ~/.config/qtile/EnG1nE/Sequencer/Seq.py
 from libqtile.widget import image, base
-import os
+import os, random
 from libqtile.log_utils import logger
 
 class State(image.Image):
@@ -44,7 +44,7 @@ class State(image.Image):
             self._Timer.cancel()
             self._Timer = None
 
-        interval = 1.0 / min(max(.1, self._Hz), 60)
+        interval = (1.0 / min(max(.1, self._Hz), 60)) + .05 * random.random() - .0025
         self._Timer = self.timeout_add(interval, self._Iter)
 
     def _Iter(self):
@@ -67,12 +67,13 @@ class State(image.Image):
 
     @property
     def MaxFrame(self):
-        return len(self._Frames)
+        return len(self._Frames) - 1
 
     def SetFrame(self, index:int):
-        self.filename = self._Frames[index]
-        self._update_image()
-        self.draw()
+        if self._Frames[index] != self.filename:
+            self.filename = self._Frames[index]
+            self._update_image()
+            self.draw()
 
     def SetFramePercent(self, Num0to1:float):
         Num0to1 = 0 if Num0to1 < 0 else 1 if Num0to1 > 1 else Num0to1
