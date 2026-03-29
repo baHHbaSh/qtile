@@ -86,11 +86,19 @@ class RAMGroup(PercentGroup):
         self.SeqButton.SetFramePercent(percent_used/100)
 
 class BataryGroup(PercentGroup):
+    IsCharged = None
     def __init__(self, Path, FPS, Widgets, **kwargs):
         super().__init__(Path, FPS, Widgets, self.Callback, **kwargs)
     def Callback(self, FPS):
-        HasBatary = psutil.sensors_battery().percent / 100
-        self.SeqButton.SetFramePercent(HasBatary)
+        Bat = psutil.sensors_battery()
+        Per = Bat.percent / 100
+        IsCha = Bat.power_plugged
+        if IsCha != self.IsCharged:
+            self.IsCharged = IsCha
+            Img = self.GetWidgets()[0]
+            Img.background = "#FFCC00" if IsCha else "#55000055"
+            Img.RenderWidget()
+        self.SeqButton.SetFramePercent(Per)
 
 class NetworkGroup(PercentGroup):
     def __init__(self, Path, FPS, Widgets, **kwargs):

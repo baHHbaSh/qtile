@@ -52,6 +52,11 @@ class State(image.Image):
         
         self._CreateTimer()
         return False  # однократный вызов (таймер уже пересоздан)
+    
+    def RenderWidget(self):
+        self._update_image()
+        self.draw()
+
 
     @property
     def Hz(self):
@@ -72,8 +77,7 @@ class State(image.Image):
     def SetFrame(self, index:int):
         if self._Frames[index] != self.filename:
             self.filename = self._Frames[index]
-            self._update_image()
-            self.draw()
+            self.RenderWidget()
 
     def SetFramePercent(self, Num0to1:float):
         Num0to1 = 0 if Num0to1 < 0 else 1 if Num0to1 > 1 else Num0to1

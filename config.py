@@ -75,7 +75,7 @@ Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                     format="{percent:2.0%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
                     )
                 ], 
-                backgrond="#55000055",
+                background="#55000055",
                 padding=5)
 
 WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=10, Widgets=[
