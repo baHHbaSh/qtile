@@ -36,6 +36,21 @@ keys = [
     Key([mod, "shift"], "Up", lazy.layout.grow_up()),
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "f", lazy.next_layout(), desc="Toggle between layouts"),
+
+]
+
+mv = [
+    # Перемещение окна влево
+    Key(["mod4", "mod1"], "Left", lazy.layout.shuffle_left(), desc="Переместить окно влево"),
+    
+    # Перемещение окна вправо
+    Key(["mod4", "mod1"], "Right", lazy.layout.shuffle_right(), desc="Переместить окно вправо"),
+    
+    # Перемещение окна вверх
+    Key(["mod4", "mod1"], "Up", lazy.layout.shuffle_up(), desc="Переместить окно вверх"),
+    
+    # Перемещение окна вниз
+    Key(["mod4", "mod1"], "Down", lazy.layout.shuffle_down(), desc="Переместить окно вниз"),
 ]
 
 ImportBinds = [
@@ -51,6 +66,9 @@ for Bind in ImportBinds:
     except:
         pass
         #ShowMessage("Error", traceback.format_exc())
+
+for El in mv:
+    keys.append(El)
 
 CPU = CPUGroup("/home/the/Seq/Vent", [
                 widget.CPUGraph(
