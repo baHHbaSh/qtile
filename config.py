@@ -215,6 +215,10 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),
         Match(wm_type="notification"),   # важное правило для уведомлений
         Match(wm_type="dialog"),
+        Match(wm_class="Unity"),
+        Match(title="Unity Editor"),
+        Match(wm_class="unityhub"),
+        Match(title="Choose Project"),
     ]
 )
 
