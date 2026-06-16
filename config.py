@@ -90,7 +90,7 @@ RAM = RAMGroup(Path="/home/the/Seq/RAM", FPS=1, Widgets=[
 
 Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                 widget.Battery(
-                    format="{percent:2.0%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
+                    format="{percent:.1%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
                     )
                 ], 
                 background="#55000055",
