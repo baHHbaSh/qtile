@@ -90,7 +90,7 @@ RAM = RAMGroup(Path="/home/the/Seq/RAM", FPS=1, Widgets=[
 
 Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                 widget.Battery(
-                    format="{percent:.1%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
+                    format="{percent:2.0%} {hour:d}:{min:02d}", foreground="#FFFF00", background="#55000055", padding=2
                     )
                 ], 
                 background="#55000055",
@@ -98,9 +98,19 @@ Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
 
 WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=10, Widgets=[
                 widget.Wlan(
-                    format="{essid}:{quality:2}/70", foreground="#995566", background="#000000dd", padding=2
+                    format="{essid}", foreground="#315940", background="#55000055", padding=2
                     )
-], backgrond="#55000055", padding=5)
+], backgrond="#55000022", padding=5)
+
+w = widget.WidgetBox( #self.toggle/open/close
+                widgets=[
+                    widget.Systray(),
+                    widget.Sep(),
+                    widget.GroupBox(highlight_method='line'),
+                ],
+                text_closed='[+]',
+                text_open='[-]',
+                )
 
 groups = [Group(i) for i in "123456789"]
 for i in groups:
@@ -137,15 +147,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.WidgetBox( #self.toggle/open/close
-                widgets=[
-                    widget.Systray(),
-                    widget.Sep(),
-                    widget.GroupBox(highlight_method='line'),
-                ],
-                text_closed='[+]',
-                text_open='[-]',
-                ),
+                w,
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -234,3 +236,5 @@ wmname = "LG3D"
 @hook.subscribe.startup_once
 def autostart():
     subprocess.Popen(["bash", "/home/the/.config/qtile/Daemons/AutoStart.sh"])
+
+    w.toggle()
