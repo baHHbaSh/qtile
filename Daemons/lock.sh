@@ -59,7 +59,7 @@ i3lock \
     --pass-media-keys \
     --pass-power-keys \
     --pass-volume-keys \
-    --refresh-rate 60 \
+    --refresh-rate 1 \
     --bar-indicator \
     --bar-pos y+h \
     --bar-direction 1 \
