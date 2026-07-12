@@ -1,54 +1,74 @@
 #!/bin/bash
+
+LOG="/tmp/lock.log"
+exec > "$LOG" 2>&1
+
+SCREENSHOT="/tmp/lockscreen.png"
+BLUR="/tmp/lockscreen_blur.png"
+BLUR_LEVEL=16
+BACKGROUND="#2E3440AA"
+
+# Проверка и создание скриншота
+if command -v scrot &>/dev/null; then
+    scrot -z "$SCREENSHOT" || { echo "scrot failed"; exit 1; }
+elif command -v import &>/dev/null; then
+    import -window root "$SCREENSHOT" || { echo "import failed"; exit 1; }
+else
+    echo "No screenshot tool (scrot or import) found."
+    exit 1
+fi
+
+# Проверка, что файл создан
+if [ ! -f "$SCREENSHOT" ]; then
+    echo "Screenshot file not created."
+    exit 1
+fi
+
+# Размытие
+if command -v magick &>/dev/null; then
+    magick "$SCREENSHOT" -blur 0x$BLUR_LEVEL -fill "$BACKGROUND" -colorize 30% "$BLUR" || { echo "magick failed"; exit 1; }
+elif command -v convert &>/dev/null; then
+    convert "$SCREENSHOT" -blur 0x$BLUR_LEVEL -fill "$BACKGROUND" -colorize 30% "$BLUR" || { echo "convert failed"; exit 1; }
+else
+    echo "No ImageMagick tool (magick or convert) found."
+    exit 1
+fi
+
+if [ ! -f "$BLUR" ]; then
+    echo "Blurred image not created."
+    exit 1
+fi
+
+# Запуск i3lock
 i3lock \
+    --image "$BLUR" \
+    --clock \
+    --time-color ffffffff \
+    --date-color ffffffff \
+    --time-str "%H:%M:%S" \
+    --date-str "%A, %d %B" \
+    --time-font "Noto Sans" \
+    --date-font "Noto Sans" \
+    --verif-text "Открываем..." \
+    --wrong-text "Неверный пароль" \
+    --noinput-text "Вводи пароль" \
+    --lock-text "Блокируем..." \
+    --lockfailed-text "Ошибка" \
+    --show-failed-attempts \
+    --ignore-empty-password \
+    --pass-media-keys \
+    --pass-power-keys \
+    --pass-volume-keys \
+    --refresh-rate 60 \
     --bar-indicator \
     --bar-pos y+h \
     --bar-direction 1 \
     --bar-max-height 50 \
     --bar-base-width 50 \
     --bar-color 00000022 \
-    --keyhl-color 00ff55cc \
     --bar-periodic-step 50 \
     --bar-step 20 \
-    --redraw-thread \
-    --clock \
-    --time-color ffffffff \
-    --date-color ffffffff \
-    --time-str="%H:%M:%S" \
-    --time-font "Noto Sans" \
-    --date-font "Noto Sans" \
-    --verif-text "Привет..." \
-    --wrong-text "Ха, лох!" \
-    --noinput-text "Чё смотришь?" \
-    --lock-text "Лочим..." \
-    --lockfailed-text "Ошибка!" \
-    --show-failed-attempts \
-    --ignore-empty-password \
-    --pass-media-keys \
-    --pass-power-keys \
-    --pass-volume-keys \
-    --refresh-rate 60 &
+    --redraw-thread
 
-
-
-#i3lock \
-#    --blur 5 \
-#    --clock \
-#    --time-color ffffffff \
-#    --date-color ffffffff \
-#    --time-str="%H:%M:%S" \
-#    --date-str="%Y-%m-%d" \
-#    --ring-color 00000088 \          # Цвет внешнего кольца
-#    --inside-color 00000000 \        # Цвет внутренней части (прозрачный)
-#    --line-color 00000000 \          # Цвет линии (прозрачный)
-#    --separator-color 00000000 \     # Цвет разделителя (прозрачный)
-#    --keyhl-color ffffffcc \         # Цвет подсветки клавиш
-#    --ringver-color 00ff00ff \       # Цвет кольца при проверке
-#    --ringwrong-color ff0000ff \     # Цвет кольца при ошибке
-#    --verif-color ffffffff \         # Цвет текста проверки
-#    --wrong-color ffffffff \         # Цвет текста ошибки
-#    --modif-color ffffffff \         # Цвет текста модификатора
-#    --layout-color ffffffff \        # Цвет текста раскладки
-#    --time-font "Noto Sans" \
-#    --date-font "Noto Sans" \
-#    --time-size 20 \
-#    --date-size 15
+# Удаление временных файлов (после завершения i3lock)
+rm -f "$SCREENSHOT" "$BLUR"
