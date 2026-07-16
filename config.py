@@ -36,7 +36,7 @@ keys = [
     Key([mod, "shift"], "Up", lazy.layout.grow_up()),
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "f", lazy.next_layout(), desc="Toggle between layouts"),
-
+    Key([mod], "q", lazy.spawn("rofi -show drun"))
 ]
 
 mv = [
@@ -96,7 +96,7 @@ Bat = BataryGroup(Path="/home/the/Seq/Bat", FPS=1, Widgets=[
                 background="#55000055",
                 padding=5)
 
-WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=10, Widgets=[
+WIFI = NetworkGroup(Path="/home/the/Seq/WiFi", FPS=1, Widgets=[
                 widget.Wlan(
                     format="{essid}", foreground="#315940", background="#55000055", padding=2
                     )

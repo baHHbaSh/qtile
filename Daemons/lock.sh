@@ -5,7 +5,7 @@ exec > "$LOG" 2>&1
 
 SCREENSHOT="/tmp/lockscreen.png"
 BLUR="/tmp/lockscreen_blur.png"
-BLUR_LEVEL=16
+BLUR_LEVEL=25
 BACKGROUND="#2E3440AA"
 
 # Проверка и создание скриншота
@@ -43,7 +43,7 @@ fi
 i3lock \
     --image "$BLUR" \
     --clock \
-    --time-color ffffffff \
+    --time-color 00ee33ff \
     --date-color ffffffff \
     --time-str "%H:%M:%S" \
     --date-str "%A, %d %B" \
