@@ -205,7 +205,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-auto_fullscreen = True
+cursor_warp = False
 focus_on_window_activation = "smart"
 focus_previous_on_window_remove = False
 reconfigure_screens = True
@@ -229,12 +229,12 @@ floating_layout = layout.Floating(
 auto_minimize = False
 
 idle_inhibitors = []
-wmname = "LG3D"
+wmname = "qtile"
 
 #ShowMessage("Message", "Launch")
 
 @hook.subscribe.startup_once
 def autostart():
     subprocess.Popen(["bash", "/home/the/.config/qtile/Daemons/AutoStart.sh"])
-
+    lazy.spawn("setxkbmap -option ctrl:nocaps")
     w.toggle()
